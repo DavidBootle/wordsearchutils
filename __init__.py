@@ -1,3 +1,5 @@
+name = "wordsearchutils"
+
 class Character (object):
   def __init__(self, char, coords, word=None):
     self.char = char

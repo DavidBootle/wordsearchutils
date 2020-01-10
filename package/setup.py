@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="wordsearchutils-TheWeirdSquid", # Replace with your own username
-    version="1.1",
+    name="wordsearchutils",
+    version="1.0",
     author="David Bootle",
     author_email="davidtbootle@gmail.com",
     description="A library to solve word searches.",

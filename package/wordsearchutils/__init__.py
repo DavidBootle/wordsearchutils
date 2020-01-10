@@ -46,9 +46,9 @@ class WordSearch (object):
       y += 1
     self.directional_matrices = {
       "right" : self.matrix,
-      "left" : WordSearch.flip_horizantal(self.matrix),
-      "down" : WordSearch.rotate_right(self.matrix),
-      "up" : WordSearch.rotate_left(self.matrix)
+      "left" : WordSearch.rotate_180(self.matrix),
+      "down" : WordSearch.rotate_90(self.matrix),
+      "up" : WordSearch.rotate_270(self.matrix)
     }
     self.directional_matrices["diagonal_right"] = WordSearch.get_diagonal(self.matrix)
     self.directional_matrices["diagonal_left"] = WordSearch.get_diagonal(self.directional_matrices["left"])
@@ -107,6 +107,7 @@ class WordSearch (object):
                   self.word_obj_list.remove(word_obj_2)
               self.word_obj_list.append(word_obj)
   
+  '''Flip horizantal has been replaced with rotate_180 as it is accurate.'''
   def flip_horizantal(word_search_matrix):
     temp_matrix = []
     row = 0
@@ -118,8 +119,8 @@ class WordSearch (object):
         char_index -= 1
       row += 1
     return temp_matrix
-  
-  def rotate_right(word_search_matrix):
+
+  def rotate_90(word_search_matrix):
     temp_matrix = []
     for char in word_search_matrix[0]:
       temp_matrix.append([])
@@ -133,7 +134,7 @@ class WordSearch (object):
       row.reverse()
     return word_search_matrix
 
-  def rotate_left(word_search_matrix):
+  def rotate_270(word_search_matrix):
     temp_matrix = []
     for char in word_search_matrix[0]:
       temp_matrix.append([])
@@ -145,6 +146,11 @@ class WordSearch (object):
     word_search_matrix = temp_matrix
     return word_search_matrix
   
+  def rotate_180_degrees(word_search_matrix):
+    rotate1 = WordSearch.rotate_90(word_search_matrix)
+    rotate2 = WordSearch.rotate_90(word_search_matrix)
+    return rotate2
+
   def get_diagonal(word_search_matrix):
     diagonal_num = len(word_search_matrix) + len(word_search_matrix[0]) - 1
     temp_matrix = []

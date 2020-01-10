@@ -164,9 +164,9 @@ class WordSearch (object):
     word_search_matrix = temp_matrix
     return word_search_matrix
   
-  def rotate_180_degrees(word_search_matrix):
+  def rotate_180(word_search_matrix):
     rotate1 = WordSearch.rotate_90(word_search_matrix)
-    rotate2 = WordSearch.rotate_90(word_search_matrix)
+    rotate2 = WordSearch.rotate_90(rotate1)
     return rotate2
 
   def get_diagonal(word_search_matrix):

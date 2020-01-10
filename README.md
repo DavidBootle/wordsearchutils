@@ -84,6 +84,10 @@ wordsearchutils.Character(char, coords, word = None)
 
 - **`self.words`**: A list of `wordsearchutils.Word` objects that the character is part of. Before parsing the word search this list will be empty unless initialized with `word` not equal to `None`.
 
+#### Methods
+- **`self.__str__(self)`**:
+Returns `self.char`.
+
 ## wordsearchutils.Word
 #### Initialization
 ```python

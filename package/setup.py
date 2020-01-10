@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="wordsearchutils",
-    version="1.1",
+    version="1.0",
     author="David Bootle",
     author_email="davidtbootle@gmail.com",
     description="A library to solve word searches.",

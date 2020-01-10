@@ -4,14 +4,19 @@ class Character (object):
   def __init__(self, char, coords, word=None):
     self.char = char
     self.coords = coords
-    self.word = word
+    if word != None:
+      self.words = []
+    else:
+      self.words = [word]
   
-  def set_word(self, word_obj):
-    self.word = word_obj
+  def __str__(self):
+    return self.char
 
 class WordSearch (object):
   def __init__(self, word_search_matrix, word_list = [], ignore_spaces = True, case_sensitive = False):
     # generate character matrix
+
+    # removes spaces from words if ignore_spaces is true
     if ignore_spaces:
       temp_word_list = []
       for word in word_list:
@@ -19,17 +24,16 @@ class WordSearch (object):
       self.word_list = temp_word_list
     else:
       self.word_list = word_list
-    if case_sensitive:
-      temp_list = []
-      for word in self.word_list:
-        temp_list.append(str.lower(word))
-      self.word_list = temp_list
+
+    # if case_sensitive is false, changes all words to lower case
     if not case_sensitive:
       temp_word_list = []
       for word in self.word_list:
         if not case_sensitive:
           temp_word_list.append(str.lower(word))
       self.word_list = temp_word_list
+
+    # generates the word search matrix
     self.word_obj_list = []
     self.matrix = []
     y = 0
@@ -37,6 +41,7 @@ class WordSearch (object):
       self.matrix.append([])
       row = word_search_matrix[y]
       x = 0
+      # transforms the original matrix into a matrix of wordsearchutils.Character objects
       while x < len(row):
         if type(row[x]) != Character:
           self.matrix[y].append(Character(row[x], (x,y)))
@@ -44,6 +49,8 @@ class WordSearch (object):
           self.matrix[y].append(row[x])
         x += 1
       y += 1
+
+    # assigns directional matrices
     self.directional_matrices = {
       "right" : self.matrix,
       "left" : WordSearch.rotate_180(self.matrix),
@@ -55,6 +62,7 @@ class WordSearch (object):
     self.directional_matrices["diagonal_down"] = WordSearch.get_diagonal(self.directional_matrices["down"])
     self.directional_matrices["diagonal_up"] = WordSearch.get_diagonal(self.directional_matrices["up"])
 
+  # prints one of the matrices
   def print_chars(self, direction = "right"):
     for row in self.directional_matrices[direction]:
       for character in row:
@@ -85,7 +93,7 @@ class WordSearch (object):
       word_obj.print_info()
       print()
   
-  def parse_word_search(self):
+  def parse(self):
     for word in self.word_list:
       for matrix in self.directional_matrices:
         for row in self.directional_matrices[matrix]:
@@ -106,6 +114,16 @@ class WordSearch (object):
                 if Word.equal(word_obj, word_obj_2):
                   self.word_obj_list.remove(word_obj_2)
               self.word_obj_list.append(word_obj)
+  
+  def __str__(self):
+    temp_matrix = []
+    index = 0
+    for row in self.matrix:
+      temp_matrix.append([])
+      for char in row:
+        temp_matrix[index].append(char.char)
+      index += 1
+    return temp_matrix
   
   '''Flip horizantal has been replaced with rotate_180 as it is accurate.'''
   def flip_horizantal(word_search_matrix):
@@ -191,7 +209,7 @@ class Word (object):
   
   def add_char(self, char):
     self.char_list.append(char);
-    char.set_word(self)
+    char.words.append(self)
   
   def print_info(self):
     print(self.word)
@@ -203,3 +221,6 @@ class Word (object):
       return True
     else:
       return False
+  
+  def __str__(self):
+    return self.word

@@ -3,6 +3,9 @@ A utility package to help with word search solving applications.
 
 This module arose because I wanted to make a program to solve word searches, and needed custom classes in order to do it. I thought I would make my effort available to the general public. Enjoy!
 
+# Installation
+`pip install wordsearchutils`
+
 # Reference
 ## wordsearchutils.WordSearch
 The word search class is an object that can be created to represent a word search.
